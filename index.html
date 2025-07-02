@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donescar Louis | Autor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-green: #00ff00;
+            --dark-bg: #0f0f1a;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+        header {
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+            padding: 2rem;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            animation: bgShift 8s infinite alternate;
+        }
+        @keyframes bgShift {
+            0% { background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue)); }
+            50% { background: linear-gradient(45deg, var(--neon-blue), var(--neon-green)); }
+            100% { background: linear-gradient(45deg, var(--neon-green), var(--neon-pink)); }
+        }
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-blue);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--neon-pink); }
+            to { text-shadow: 0 0 15px var(--neon-blue), 0 0 20px var(--neon-green); }
+        }
+        .book-section {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            backdrop-filter: blur(5px);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .book-section:hover {
+            transform: scale(1);
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+        .btn-neon {
+            background: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .btn-neon:hover {
+            background: var(--neon-green);
+            color: var(--dark-bg);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--neon-blue), var(--dark-bg));
+            margin-top: 2rem;
+        }
+        #chatbot-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            border: 1px solid var(--neon-blue);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Donescar Louis</h1>
+        <p>Autor | Creador de Mundos</p>
+    </header>
+
+    <main>
+        <!-- Sección del Libro (genérica) -->
+        <section class="book-section">
+            <h2>📕 <span style="color: var(--neon-pink)">Próximo Libro</span></h2>
+            <img src="https://via.placeholder.com/200x300/0f0f1a/00ffff?text=Portada+Próximamente" alt="Portada del libro" style="max-width: 200px; border: 2px solid var(--neon-blue);">
+            <p>¡Una historia que te transportará! Donescar está trabajando en un libro lleno de emociones. ¿Quieres saber más?</p>
+            <button class="btn-neon">Avísame cuando salga</button>
+        </section>
+
+        <!-- Chatbot Integrado -->
+        <section style="text-align: center;">
+            <h3>💬 Habla con el asistente de Donescar:</h3>
+            <div id="chatbot-container">
+                <!-- El chatbot se insertará aquí automáticamente -->
+            </div>
+        </section>
+
+        <!-- Galería (placeholder) -->
+        <section style="max-width: 800px; margin: 2rem auto;">
+            <h2>📸 Momentos Inspiradores</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                <img src="https://via.placeholder.com/150/0f0f1a/00ffff?text=Foto+1" alt="Foto 1" style="width: 150px; height: 150px; object-fit: cover; border: 1px solid var(--neon-pink);">
+                <img src="https://via.placeholder.com/150/0f0f1a/ff00ff?text=Foto+2" alt="Foto 2" style="width: 150px; height: 150px; object-fit: cover; border: 1px solid var(--neon-blue);">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Donescar Louis. Todos los derechos reservados.</p>
+        <p>✨ <em>Un espacio para la creatividad</em> ✨</p>
+    </footer>
+
+    <!-- Script del Chatbot -->
+    <script>
+        (function(){
+            if(!window.chatbase||window.chatbase("getState")!=="initialized"){
+                window.chatbase=(...arguments)=>{
+                    if(!window.chatbase.q){window.chatbase.q=[]}
+                    window.chatbase.q.push(arguments)
+                };
+                window.chatbase=new Proxy(window.chatbase,{
+                    get(target,prop){
+                        if(prop==="q"){return target.q}
+                        return(...args)=>target(prop,...args)
+                    }
+                })
+            }
+            const onLoad=function(){
+                const script=document.createElement("script");
+                script.src="https://www.chatbase.co/embed.min.js";
+                script.id="sYvdiJrY7V6olox97E3Np";
+                script.domain="www.chatbase.co";
+                document.body.appendChild(script)
+            };
+            if(document.readyState==="complete"){onLoad()}
+            else{window.addEventListener("load",onLoad)}
+        })();
+    </script>
+
+    <!-- Efectos de partículas (opcional) -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('body', 'https://particles.js.org/particles.json', function() {
+            console.log('¡Partículas cargadas!');
+        });
+    </script>
+</body>
+</html>
